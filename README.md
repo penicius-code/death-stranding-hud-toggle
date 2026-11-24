@@ -3,6 +3,8 @@
 A hotkey that hides and shows the gameplay HUD in Death Stranding Director's Cut. Single-player only.
 Version 1.1.0 | Tested in game on 2026-10-22 with the Steam version (`ds.exe`, build dsq 179) | Status: keyboard toggle working; controller toggle not working (see Known issues)
 
+**Download:** [latest release](https://github.com/penicius-code/death-stranding-hud-toggle/releases/latest) (zip; install steps below)
+
 > Unofficial fan-made modification. Not affiliated with, endorsed by or sponsored by Kojima Productions, 505 Games or Sony Interactive Entertainment. No game files are included; a legitimate copy of the game is required.
 
 ## The problem
@@ -52,7 +54,7 @@ The same command runs in this repository's CI on every push, together with the u
 ## Install
 
 1. Install Ultimate ASI Loader into the game folder as described on its page.
-2. Copy `build\DSHudToggle.asi` and `DSHudToggle.ini` into the game folder, next to `ds.exe`. Do this while the game is closed.
+2. Download the zip from the [latest release](https://github.com/penicius-code/death-stranding-hud-toggle/releases/latest) (or build the plugin yourself, see Build) and copy `DSHudToggle.asi` and `DSHudToggle.ini` into the game folder, next to `ds.exe`. Do this while the game is closed.
 3. Start the game and press Delete during play. The HUD disappears; press again and it comes back.
 
 To confirm it loaded: set `Log = 1` in the ini, start the game, and read `DSHudToggle.log` next to the plugin. It names the version and the three places it found.
