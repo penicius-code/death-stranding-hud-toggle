@@ -47,7 +47,7 @@ Nothing is bundled. This repository contains source only; there is no pre-built 
 1. Install Zig 0.16.0, or unpack it anywhere and set `ZIG` to the full path of `zig.exe`.
 2. Run `build.cmd`. The result is `build\DSHudToggle.asi`.
 
-The same command runs in this repository's CI on every push, together with the unit tests.
+The same command runs in this repository's CI on every push, together with the unit tests. The CI log prints the SHA-256 of the built file. On 2026-11-24 the CI build of 1.1.0 was byte-identical to the plugin that was tested in the game (SHA-256 `1b0deb5688d1cfe5bb4d18ae6157f55d12301f49fa6548aa02dbe74ddf300149`).
 
 ## Install
 
