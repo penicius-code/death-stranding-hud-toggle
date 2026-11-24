@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: Build with Zig 0.16.0
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: 0.16.0
+      - name: Build the plugin
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force build | Out-Null
+          zig cc -target x86_64-windows-gnu -shared -O2 -s -Wall -Wextra -o build/DSHudToggle.asi src/dshudtoggle.c -luser32
+          Get-FileHash build/DSHudToggle.asi | Format-List
+      - name: Build and run the unit tests (controller report parsing, no hardware needed)
+        shell: pwsh
+        run: |
+          zig cc -target x86_64-windows-gnu -O1 -I src -o build/test_ps.exe tests/test_ps.c -luser32
+          zig cc -target x86_64-windows-gnu -O1 -I src -o build/test_mute.exe tests/test_mute.c -luser32
+          ./build/test_ps.exe
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          ./build/test_mute.exe
+          if ($LASTEXITCODE -ne 0) { exit 1 }
